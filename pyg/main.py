@@ -79,6 +79,17 @@ early_stop_rounds = args.early_stop_rounds
 
 class NeighborSampleDataset(IterableDataset):
     def __init__(self, X, y, edge_index, edge_weight, num_nodes, batch_size, shuffle):
+        """
+
+        Args:
+            X:
+            y:
+            edge_index: edge LongTensor, indices [2,num_edges]
+            edge_weight:
+            num_nodes:
+            batch_size:
+            shuffle:
+        """
         self.X = X
         self.y = y
 
