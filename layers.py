@@ -97,7 +97,7 @@ class GATLayer(nn.Module):
         block.edata['weight'] = edge_weight.unsqueeze(dim=1)
         block.update_all(message_func=self.message_fn, reduce_func=fn.sum(msg='aggr', out='aggr_out'))
 
-        aggr_out = torch.matmul(block.srcdata['h'], self.u) + block['aggr_out']
+        aggr_out = torch.matmul(feat_dst, self.u) + block['aggr_out']
 
         if self.normalize == 'bn':
             aggr_out = aggr_out.permute(0, 2, 1)
@@ -115,8 +115,8 @@ class GATLayer(nn.Module):
 
         else:
             raise TypeError('Norm type error')
-        # Todo exits error
-        return aggr_out + [feat_dst, feat_src]
+
+        return aggr_out + feat_dst
 
     def message_fn(self, edges):
 
